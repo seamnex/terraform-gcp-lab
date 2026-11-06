@@ -1,0 +1,24 @@
+#cloud-config
+# Container-Optimized OS: el sistema de archivos raíz es de solo lectura, así
+# que la app corre como unidad de systemd que lanza el contenedor.
+
+write_files:
+  - path: /etc/systemd/system/status-api.service
+    permissions: "0644"
+    owner: root
+    content: |
+      [Unit]
+      Description=status-api (${imagen})
+      Wants=network-online.target
+      After=network-online.target docker.service
+
+      [Service]
+      Restart=always
+      RestartSec=5
+      ExecStartPre=-/usr/bin/docker rm -f status-api
+      ExecStart=/usr/bin/docker run --rm --name status-api -p ${puerto}:8080 ${imagen}
+      ExecStop=/usr/bin/docker stop -t 10 status-api
+
+runcmd:
+  - systemctl daemon-reload
+  - systemctl start status-api.service

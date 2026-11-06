@@ -1,0 +1,17 @@
+# Directorios de trabajo de Terraform
+.terraform/
+*.tfplan
+tfplan
+plan.txt
+
+# State local (solo bootstrap lo usa): contiene IDs y a veces secretos.
+*.tfstate
+*.tfstate.*
+
+# Override de backend del CI: se copia en el runner, nunca dentro de envs/.
+envs/**/backend_override.tf
+
+# Valores reales del bootstrap (el .example sí se versiona)
+bootstrap/terraform.tfvars
+
+crash.log
