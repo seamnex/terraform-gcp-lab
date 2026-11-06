@@ -328,7 +328,28 @@ mí (CMEK). CMEK suma una clave de Cloud KMS, su rotación y el riesgo de que
 borrar la clave deje el state ilegible. Para un lab, ese riesgo es mayor que el
 beneficio. En un entorno regulado la decisión sería la inversa.
 
-<!-- CI-BITACORA -->
+### En GitHub Actions
+
+**Fecha:** 06/11/2026 (UTC). Runner `ubuntu-24.04`, modo offline.
+
+| Corrida | Resultado | Duración |
+|---|---|---|
+| Push a `main` (commit inicial) | ✅ fmt · tflint + trivy · plan dev · plan prod | 27 s en total |
+| [PR #1](https://github.com/seamnex/terraform-gcp-lab/pull/1), commit 1: `tfvars` desalineado | ❌ **fmt falló a propósito**, plan *skipped* | — |
+| PR #1, commit 2: formato corregido | ✅ plan comentado en el PR (prod con `target_size = 3`) | — |
+| PR #1, commit 3: re-push vacío | ✅ los **mismos 2 comentarios** actualizados, ninguno nuevo | — |
+
+El PR #1 existe solo para verificar el workflow y se cerró sin mergear. Lo que
+comprobó:
+
+- **El formato es una compuerta, no una sugerencia.** El log muestra el diff
+  exacto (`-replicas = 3` / `+replicas     = 3`) y el plan ni siquiera arranca:
+  no tiene sentido revisar el efecto de un código que no pasa lo básico.
+- **El plan llega a quien revisa, no se queda en el log.** Un comentario por
+  entorno, con el resumen arriba y el plan completo plegado.
+- **Los comentarios no se acumulan.** Cada push actualiza el comentario de su
+  entorno. Un PR con quince comentarios de plan, catorce viejos, es un PR donde
+  alguien termina aprobando el plan equivocado.
 
 ### Lo que no está probado
 
