@@ -9,9 +9,10 @@ de red, IAM y cómputo, state remoto en GCS, entornos `dev` y `prod`, y un
 workflow que corre `fmt`, `validate`, `tflint` y `plan` en cada pull request.
 
 > Parte de mi ruta de especialización en SRE / DevOps.
-> Contexto: en gestión de incidentes, el cambio manual en la consola —el que
-> nadie revisó y nadie anotó— es una de las causas que más se repiten. Acá
-> practico la alternativa: que la infraestructura cambie solo por PR.
+> Contexto: vengo de gestión de incidentes P1/P2. El cambio manual en la
+> consola —el que nadie revisó y nadie anotó— es una causa clásica de incidentes
+> difíciles de diagnosticar. Acá practico la alternativa: que la infraestructura
+> cambie solo por PR.
 
 > **Estado honesto de este lab.** Todo el código se validó y se planeó, pero
 > **todavía no se aplicó contra una cuenta real de GCP**. Los planes de esta
