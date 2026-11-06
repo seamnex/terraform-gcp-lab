@@ -11,7 +11,7 @@ cidr       = "10.20.0.0/24"
 # capacidad perdida justo cuando más se la necesita.
 tipo_maquina = "e2-small"
 tipo_disco   = "pd-balanced"
-replicas     = 2
+replicas = 3
 spot         = false
 
 imagen = "ghcr.io/seamnex/cicd-pipeline:0.1.0"
